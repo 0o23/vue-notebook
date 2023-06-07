@@ -1,5 +1,5 @@
 <template>
-	<div class="sql-editor h-full border">
+	<div class="sql-editor h-1/2 border">
 		<codemirror v-model="sqlScript" :options="cmOptions" ref="codemirror"></codemirror>
 	</div>
 </template>
@@ -12,6 +12,7 @@ import 'codemirror/mode/sql/sql.js'
 import 'codemirror/addon/hint/show-hint.css'
 import 'codemirror/addon/hint/show-hint'
 import 'codemirror/addon/hint/sql-hint'
+import '@/utils/codemirror/active-line.js'
 
 export default {
 	name: 'SqlEditor',
@@ -38,6 +39,7 @@ export default {
 					tables: {
 						// 联想项: [联想项的分支1, 联想项的分支2, 联想项的分支3],
 						// table1: ["c1", "c2", "c3"]
+						custom_table: ['custom_field1', 'custom_field2', 'custom_field3'],
 					},
 				},
 			},

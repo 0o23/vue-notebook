@@ -1,9 +1,10 @@
 <template>
 	<div class="sidebar">
 		<el-menu
-			:default-active="defaultActiveMenu"
 			class="el-menu-vertical-demo"
+			:default-active="defaultActiveMenu"
 			:default-openeds="defaultOpenedMenuList"
+			@select="selectMenu"
 		>
 			<el-submenu v-for="{ index, icon, label, items } in menuList" :key="index" :index="index">
 				<template slot="title">
@@ -35,6 +36,7 @@ export default {
 						{
 							index: 'codemirror',
 							label: 'codemirror',
+							componentName: 'Codemirror',
 						},
 					],
 				},
@@ -65,6 +67,7 @@ export default {
 						{
 							index: '分栏宽度拉伸',
 							label: '分栏宽度拉伸',
+							componentName: 'ColumnWidthStretchingVue',
 						},
 					],
 				},
@@ -73,11 +76,28 @@ export default {
 	},
 
 	computed: {
-		defaultActiveMenu() {
-			return this.menuList[0].items[0].index
+		defaultActiveMenu: {
+			set() {},
+			get() {
+				return this.menuList[0].items[0].index
+			},
+		},
+
+		// 二级菜单列表
+		menuItemList() {
+			return this.menuList
+				.map(submenu => {
+					return [...submenu.items]
+				})
+				.flat(1)
 		},
 	},
 
-	methods: {},
+	methods: {
+		selectMenu(menuIndex) {
+			const targetComponent = this.menuItemList.find(i => i.index === menuIndex).componentName
+			this.$emit('change-component', targetComponent)
+		},
+	},
 }
 </script>

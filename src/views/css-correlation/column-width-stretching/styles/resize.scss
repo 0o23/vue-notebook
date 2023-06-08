@@ -1,0 +1,59 @@
+.resize-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.resize-container-left {
+  background-color: #fff;
+  position: relative;
+  float: left;
+}
+
+.resize-container-right {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.resize-save {
+  position: absolute;
+  top: 0;
+  right: 5px;
+  bottom: 0;
+  left: 0;
+  overflow-x: hidden;
+}
+
+.resize-bar {
+  width: 300px;
+  height: inherit;
+  resize: horizontal;
+  cursor: col-resize;
+  opacity: 0;
+  overflow: scroll;
+}
+
+
+
+/* 拖拽线 */
+.resize-line {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-right: 2px solid #eee;
+  border-left: 1px solid #bbb;
+  pointer-events: none;
+  height: 100%;
+}
+
+.resize-container-left:hover .resize-line,
+.resize-container-left:active .resize-line {
+  border-left: 2px dashed #409eff;
+}
+
+.resize-bar::-webkit-scrollbar {
+  height: inherit !important;
+}

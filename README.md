@@ -1,19 +1,3 @@
 # notebook
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+本仓库包含本人前端入行以来, 遇到过的有些记录价值的实现示例

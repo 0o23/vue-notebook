@@ -4,9 +4,13 @@
 			<div class="resize-container-left" ref="resizeContainerLeftRef">
 				<div class="resize-bar"></div>
 				<div class="resize-line"></div>
-				<div class="resize-save">左左左左左左左</div>
+				<div class="resize-save">
+					<slot name="left">这是左边的内容</slot>
+				</div>
 			</div>
-			<div class="resize-container-right" style="position: relative">右右右右右右右</div>
+			<div class="resize-container-right" style="position: relative">
+				<slot name="right">这是右边的内容</slot>
+			</div>
 		</div>
 	</div>
 </template>

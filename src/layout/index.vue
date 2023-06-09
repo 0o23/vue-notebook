@@ -13,17 +13,19 @@
 import Sidebar from './Sidebar.vue'
 import Codemirror from '@/views/Codemirror.vue'
 import ColumnWidthStretchingVue from '@/views/css-correlation/column-width-stretching'
+import JsPlumb from '@/views/chart-correlation/jsplumb/'
 
 export default {
 	components: {
 		Sidebar,
 		Codemirror,
 		ColumnWidthStretchingVue,
+		JsPlumb,
 	},
 
 	data() {
 		return {
-			activatedChildComponent: 'Codemirror',
+			activatedChildComponent: 'JsPlumb',
 		}
 	},
 

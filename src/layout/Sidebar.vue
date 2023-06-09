@@ -25,8 +25,6 @@ export default {
 
 	data() {
 		return {
-			defaultOpenedMenuList: ['1', '2', '3'],
-
 			menuList: [
 				{
 					index: '1',
@@ -48,10 +46,7 @@ export default {
 						{
 							index: 'jsplumb',
 							label: 'jsplumb',
-						},
-						{
-							index: 'go.js',
-							label: 'go.js',
+							componentName: 'JsPlumb',
 						},
 						{
 							index: 'g6',
@@ -71,15 +66,38 @@ export default {
 						},
 					],
 				},
+				{
+					index: '4',
+					icon: 'el-icon-star-off',
+					label: '其他',
+					items: [
+						{
+							index: '智能助手',
+							label: '智能助手',
+							componentName: '',
+						},
+						{
+							index: '高级过滤',
+							label: '高级过滤',
+							componentName: '',
+						},
+					],
+				},
 			],
 		}
 	},
 
 	computed: {
+		// 默认展开全部的一级菜单
+		defaultOpenedMenuList() {
+			return this.menuList.map(menu => menu.index)
+		},
+
 		defaultActiveMenu: {
 			set() {},
 			get() {
-				return this.menuList[0].items[0].index
+				// return this.menuList[0].items[0].index
+				return 'jsplumb'
 			},
 		},
 

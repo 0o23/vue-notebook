@@ -1,0 +1,30 @@
+{
+  "id": "4114253",
+  "name": "vue-notebook",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "8666833",
+      "name": "文件夹",
+      "font_class": "wenjianjia",
+      "unicode": "e673",
+      "unicode_decimal": 58995
+    },
+    {
+      "icon_id": "19270123",
+      "name": "表格",
+      "font_class": "biaoge",
+      "unicode": "e8a1",
+      "unicode_decimal": 59553
+    },
+    {
+      "icon_id": "23184247",
+      "name": "字段管理",
+      "font_class": "ziduanguanli",
+      "unicode": "e7b3",
+      "unicode_decimal": 59315
+    }
+  ]
+}

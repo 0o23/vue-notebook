@@ -17,7 +17,7 @@ import '@/styles/tailwind.css'
 // 导入全局图标文件
 import '@/icons/iconfont.js'
 
-// 将 SvgIcon 组件作为全局的基础组件
+// 将 SvgIcon 组件注册为全局的基础组件
 import SvgIcon from '@/components/SvgIcon'
 Vue.component('SvgIcon', SvgIcon)
 

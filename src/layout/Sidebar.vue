@@ -81,6 +81,11 @@ export default {
 							label: '高级过滤',
 							componentName: '',
 						},
+						{
+							index: '大文件上传',
+							label: '大文件上传',
+							componentName: 'LargeFileUpload',
+						},
 					],
 				},
 			],
@@ -96,8 +101,8 @@ export default {
 		defaultActiveMenu: {
 			set() {},
 			get() {
-				// return this.menuList[0].items[0].index
-				return 'jsplumb'
+				return this.menuList[0].items[0].index
+				// return 'jsplumb'
 			},
 		},
 

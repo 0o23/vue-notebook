@@ -5,9 +5,9 @@
 -->
 <template>
 	<div class="adjustable-left-right-columns">
-		<div class="container" id="adjustable-left-right-columns__container">
+		<div class="container" ref="containerRef">
 			<div class="left">
-				<div class="resize"></div>
+				<div class="resize" ref="resizeRef"></div>
 				<div class="bar-btn"></div>
 				<div class="content">
 					<slot name="left"> 这是左边的内容 </slot>
@@ -27,15 +27,19 @@ export default {
 
 	mounted() {
 		this.initResizeHeightAndMaxWidth()
+		window.addEventListener('resize', this.initResizeHeightAndMaxWidth)
+	},
+
+	beforeDestroy() {
+		window.removeEventListener('resize', this.initResizeHeightAndMaxWidth)
 	},
 
 	methods: {
 		initResizeHeightAndMaxWidth() {
-			const containerDOM = document.getElementById('adjustable-left-right-columns__container')
-			const resizeDOM = document.getElementsByClassName('resize')[0]
+			const { containerRef, resizeRef } = this.$refs
 
-			resizeDOM.style.height = containerDOM.offsetHeight + 'px'
-			resizeDOM.style.maxWidth = Math.floor(containerDOM.offsetWidth * 0.5) + 'px'
+			resizeRef.style.height = containerRef.offsetHeight + 'px'
+			resizeRef.style.maxWidth = Math.floor(containerRef.offsetWidth * 0.5) + 'px'
 		},
 	},
 }
@@ -52,6 +56,12 @@ export default {
 
 	.left {
 		position: relative;
+	}
+
+	.left:hover {
+		.bar-btn {
+			border-left: 2px dashed skyblue;
+		}
 	}
 
 	.left .resize {

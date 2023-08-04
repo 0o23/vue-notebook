@@ -11,11 +11,12 @@
 
 <script>
 import Sidebar from './Sidebar.vue'
-import Codemirror from '@/views/Codemirror.vue'
+import Codemirror from '@/views/library-or-plug-in/Codemirror.vue'
 import ColumnWidthStretchingVue from '@/views/css-correlation/column-width-stretching'
 import JsPlumb from '@/views/chart-correlation/jsplumb/'
-import LargeFileUpload from '@/views/large-file-upload'
-import GanttChart from '@/views/gantt-chart'
+import LargeFileUpload from '@/views/others/large-file-upload'
+import GanttChart from '@/views/chart-correlation/gantt-chart'
+import MixinReact from '@/views/others/mixin-react'
 
 export default {
 	components: {
@@ -25,11 +26,12 @@ export default {
 		JsPlumb,
 		LargeFileUpload,
 		GanttChart,
+		MixinReact,
 	},
 
 	data() {
 		return {
-			activatedChildComponent: 'GanttChart',
+			activatedChildComponent: 'MixinReact',
 		}
 	},
 

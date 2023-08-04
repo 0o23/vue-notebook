@@ -91,6 +91,11 @@ export default {
 							label: '大文件上传',
 							componentName: 'LargeFileUpload',
 						},
+						{
+							index: '混入React',
+							label: '混入React',
+							componentName: 'MixinReact',
+						},
 					],
 				},
 			],
@@ -107,7 +112,7 @@ export default {
 			set() {},
 			get() {
 				// return this.menuList[0].items[0].index
-				return '甘特图'
+				return '混入React'
 			},
 		},
 

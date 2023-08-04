@@ -15,6 +15,7 @@ import Codemirror from '@/views/Codemirror.vue'
 import ColumnWidthStretchingVue from '@/views/css-correlation/column-width-stretching'
 import JsPlumb from '@/views/chart-correlation/jsplumb/'
 import LargeFileUpload from '@/views/large-file-upload'
+import GanttChart from '@/views/gantt-chart'
 
 export default {
 	components: {
@@ -23,11 +24,12 @@ export default {
 		ColumnWidthStretchingVue,
 		JsPlumb,
 		LargeFileUpload,
+		GanttChart,
 	},
 
 	data() {
 		return {
-			activatedChildComponent: 'Codemirror',
+			activatedChildComponent: 'GanttChart',
 		}
 	},
 

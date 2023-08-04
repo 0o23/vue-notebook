@@ -52,6 +52,11 @@ export default {
 							index: 'g6',
 							label: 'g6',
 						},
+						{
+							index: '甘特图',
+							label: '甘特图',
+							componentName: 'GanttChart',
+						},
 					],
 				},
 				{
@@ -101,8 +106,8 @@ export default {
 		defaultActiveMenu: {
 			set() {},
 			get() {
-				return this.menuList[0].items[0].index
-				// return 'jsplumb'
+				// return this.menuList[0].items[0].index
+				return '甘特图'
 			},
 		},
 

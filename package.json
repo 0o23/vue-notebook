@@ -7,6 +7,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.2.4",
     "@antv/ava": "^3.0.6",
     "@antv/chart-advisor": "^2.0.5-alpha.0",
     "@antv/s2": "^1.49.1",
@@ -14,7 +15,7 @@
     "@babel/plugin-transform-react-jsx": "^7.22.5",
     "@babel/plugin-transform-runtime": "^7.22.9",
     "@babel/preset-react": "^7.22.5",
-    "antd": "^5.8.2",
+    "antd": "^4.16.13",
     "antv-site-demo-rc": "^1.1.0",
     "codemirror": "^5.63.3",
     "core-js": "^3.8.3",

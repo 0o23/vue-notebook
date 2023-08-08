@@ -6,7 +6,8 @@
 <template>
 	<div class="mixin-react">
 		混入React
-		<ReactComponent :message="avaData" />
+
+		<ReactComponent />
 	</div>
 </template>
 

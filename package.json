@@ -9,6 +9,7 @@
   "dependencies": {
     "@ant-design/icons": "^5.2.4",
     "@antv/ava": "^3.0.6",
+    "@antv/ava-react": "^3.1.7",
     "@antv/chart-advisor": "^2.0.5-alpha.0",
     "@antv/s2": "^1.49.1",
     "@antv/s2-react": "^1.42.0",

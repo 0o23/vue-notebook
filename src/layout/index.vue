@@ -12,26 +12,28 @@
 <script>
 import Sidebar from './Sidebar.vue'
 import Codemirror from '@/views/library-or-plug-in/Codemirror.vue'
+import VueJson from '@/views/library-or-plug-in/VueJson.vue'
 import ColumnWidthStretchingVue from '@/views/css-correlation/column-width-stretching'
 import JsPlumb from '@/views/chart-correlation/jsplumb/'
 import LargeFileUpload from '@/views/others/large-file-upload'
 import GanttChart from '@/views/chart-correlation/gantt-chart'
-import MixinReact from '@/views/others/mixin-react'
+// import MixinReact from '@/views/others/mixin-react'
 
 export default {
 	components: {
 		Sidebar,
 		Codemirror,
+		VueJson,
 		ColumnWidthStretchingVue,
 		JsPlumb,
 		LargeFileUpload,
 		GanttChart,
-		MixinReact,
+		// MixinReact,
 	},
 
 	data() {
 		return {
-			activatedChildComponent: 'MixinReact',
+			activatedChildComponent: 'VueJson',
 		}
 	},
 

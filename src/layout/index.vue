@@ -18,6 +18,7 @@ import JsPlumb from '@/views/chart-correlation/jsplumb/'
 import LargeFileUpload from '@/views/others/large-file-upload'
 import GanttChart from '@/views/chart-correlation/gantt-chart'
 // import MixinReact from '@/views/others/mixin-react'
+import fileUploadTable from '@/views/others/file-upload-table'
 
 export default {
 	components: {
@@ -29,11 +30,12 @@ export default {
 		LargeFileUpload,
 		GanttChart,
 		// MixinReact,
+		fileUploadTable,
 	},
 
 	data() {
 		return {
-			activatedChildComponent: 'VueJson',
+			activatedChildComponent: 'fileUploadTable',
 		}
 	},
 

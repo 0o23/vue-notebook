@@ -101,6 +101,11 @@ export default {
 						// 	label: '混入React',
 						// 	componentName: 'MixinReact',
 						// },
+						{
+							index: 'fileUploadTable',
+							label: '文件上传表格',
+							componentName: 'fileUploadTable',
+						},
 					],
 				},
 			],
@@ -117,7 +122,7 @@ export default {
 			set() {},
 			get() {
 				// return this.menuList[0].items[0].index
-				return 'VueJson'
+				return 'fileUploadTable'
 			},
 		},
 

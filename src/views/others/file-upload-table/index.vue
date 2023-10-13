@@ -31,6 +31,8 @@
 				:key="index"
 				:title="title"
 				:type="type"
+				:closable="index !== 0"
+				show-icon
 			></el-alert>
 		</div>
 
@@ -76,7 +78,7 @@
 
 					<!-- 上传失败可以重新上传 -->
 					<el-button
-						v-if="scope.row.status === 'error'"
+						v-if="scope.row.status === 'error' || scope.row.status === 'cancel'"
 						type="warning"
 						size="mini"
 						icon="el-icon-refresh"
@@ -93,6 +95,9 @@
 
 <script>
 import axios from 'axios'
+import { v4 as uuidv4 } from 'uuid'
+
+const CancelToken = axios.CancelToken
 
 export default {
 	name: 'fileUploadTable',
@@ -110,6 +115,7 @@ export default {
 				},
 			],
 
+			cancelRequestMap: {}, // 这里存储所有取消请求的方法
 			cellStyle: {
 				height: '40px',
 				padding: '0',
@@ -137,7 +143,9 @@ export default {
 
 			if (status === 'error') {
 				return '失败'
-			} else if (uploadProcess === 100) {
+			} else if (status === 'cancel') {
+				return '已取消'
+			} else if (status === 'done' && uploadProcess === 100) {
 				return '完成'
 			} else {
 				return `${percentage}%`
@@ -149,7 +157,9 @@ export default {
 
 			if (status === 'error') {
 				return '#f56c6c'
-			} else if (uploadProcess === 100) {
+			} else if (status === 'cancel') {
+				return '#f56c6c'
+			} else if (status === 'done' && uploadProcess === 100) {
 				return '#67c23a'
 			} else {
 				return ''
@@ -157,11 +167,20 @@ export default {
 		},
 
 		handleCancelUpload(row) {
-			console.log(row)
+			const { uuid, filename } = row
+			if (this.cancelRequestMap[uuid] === undefined) return
+
+			this.cancelRequestMap[uuid](`已取消${filename}的上传请求`)
+			this.$delete(this.cancelRequestMap, uuid)
 		},
 
 		handleRefreshUpload(row) {
-			console.log(row)
+			// 重置状态和上传进度
+			this.$set(row, 'status', 'pending')
+			this.$set(row, 'uploadProcess', 0)
+
+			// 调用上传方法
+			this.uploadFile(row)
 		},
 
 		handleClickUpload() {
@@ -174,11 +193,11 @@ export default {
 		 * @return {File | null} 如果文件合理, 会将原文件返回, 否则返回 null
 		 */
 		validateFileAndShowTipText(file) {
-			const fileType = ['image/jpeg', 'image/jpg', 'image/png']
+			const allowUploadFileType = ['image/jpeg', 'image/jpg', 'image/png']
 
 			const { type, size, name } = file
 
-			if (!fileType.includes(type)) {
+			if (!allowUploadFileType.includes(type)) {
 				this.alertList.push({
 					title: `${name} 文件不属于 JPG/JPEG/PNG 类型，无法上传`,
 					type: 'error',
@@ -211,34 +230,45 @@ export default {
 			const filesize = this.formatFilesize(file.size)
 
 			const newRow = {
+				uuid: uuidv4(), // 生成一个唯一 id, 方便取消请求的时候用
 				filename,
 				filetype,
 				filesize,
-				imgUrl,
-				status: 'pending', // 上传状态, 成功或失败后会修改本状态, 本状态决定是否显示或显示什么样的操作按钮
+				imgUrl, // 文件预览时用的
+				file, // 文件对象, 这是方便重新上传用的
+				status: 'pending', // 上传状态, 成功/失败/取消后会修改本状态, 本状态决定是否显示或显示什么样的操作按钮及进度文字
 				uploadProcess: 0, // 上传进度初始为 0
 			}
 
 			this.tableData.push(newRow)
-			this.uploadFile(newRow, file)
+			this.uploadFile(newRow)
 		},
 
-		async uploadFile(tableRow, file) {
+		async uploadFile(tableRow) {
+			const { uuid, file } = tableRow
 			const formData = new FormData()
 			formData.append('file', file)
 
 			await axios
-				.post('http://localhost:3000/upload', formData, {
+				.post('http://localhost:3001/upload', formData, {
 					onUploadProgress: progressEvent => {
 						const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-						this.$set(tableRow, 'uploadProcess', percentCompleted)
+						this.$set(tableRow, 'uploadProcess', percentCompleted) // 实时修改上传进度
 					},
+					cancelToken: new CancelToken(cancel => {
+						this.cancelRequestMap[uuid] = cancel // 将当前这个请求的取消方法存入 map 中
+					}),
 				})
 				.then(res => {
 					this.$set(tableRow, 'status', 'done')
 				})
 				.catch(error => {
-					this.$set(tableRow, 'status', 'error')
+					// 如果手动取消, 则这里会捕捉到异常, 需要根据异常的名称判断取消或失败
+					if (error.code === 'ERR_CANCELED') {
+						this.$set(tableRow, 'status', 'cancel')
+					} else {
+						this.$set(tableRow, 'status', 'error')
+					}
 				})
 		},
 

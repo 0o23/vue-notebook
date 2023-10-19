@@ -1,10 +1,10 @@
 <template>
 	<div class="sidebar">
 		<el-menu
+			router
 			class="el-menu-vertical-demo"
 			:default-active="defaultActiveMenu"
 			:default-openeds="defaultOpenedMenuList"
-			@select="selectMenu"
 		>
 			<el-submenu v-for="{ index, icon, label, items } in menuList" :key="index" :index="index">
 				<template slot="title">
@@ -25,6 +25,8 @@ export default {
 
 	data() {
 		return {
+			defaultActiveMenu: '',
+
 			menuList: [
 				{
 					index: '1',
@@ -37,7 +39,7 @@ export default {
 							componentName: 'Codemirror',
 						},
 						{
-							index: 'VueJson',
+							index: 'vue-json',
 							label: 'VueJson',
 							componentName: 'VueJson',
 						},
@@ -47,22 +49,7 @@ export default {
 					index: '2',
 					icon: 'el-icon-pie-chart',
 					label: '图表相关',
-					items: [
-						{
-							index: 'jsplumb',
-							label: 'jsplumb',
-							componentName: 'JsPlumb',
-						},
-						{
-							index: 'g6',
-							label: 'g6',
-						},
-						{
-							index: '甘特图',
-							label: '甘特图',
-							componentName: 'GanttChart',
-						},
-					],
+					items: [],
 				},
 				{
 					index: '3',
@@ -70,7 +57,7 @@ export default {
 					label: 'CSS相关',
 					items: [
 						{
-							index: '分栏宽度拉伸',
+							index: 'column-width-stretching',
 							label: '分栏宽度拉伸',
 							componentName: 'ColumnWidthStretchingVue',
 						},
@@ -82,17 +69,7 @@ export default {
 					label: '其他',
 					items: [
 						{
-							index: '智能助手',
-							label: '智能助手',
-							componentName: '',
-						},
-						{
-							index: '高级过滤',
-							label: '高级过滤',
-							componentName: '',
-						},
-						{
-							index: '大文件上传',
+							index: 'large-file-upload',
 							label: '大文件上传',
 							componentName: 'LargeFileUpload',
 						},
@@ -102,7 +79,7 @@ export default {
 						// 	componentName: 'MixinReact',
 						// },
 						{
-							index: 'fileUploadTable',
+							index: 'file-upload-table',
 							label: '文件上传表格',
 							componentName: 'fileUploadTable',
 						},
@@ -117,29 +94,16 @@ export default {
 		defaultOpenedMenuList() {
 			return this.menuList.map(menu => menu.index)
 		},
-
-		defaultActiveMenu: {
-			set() {},
-			get() {
-				// return this.menuList[0].items[0].index
-				return 'fileUploadTable'
-			},
-		},
-
-		// 二级菜单列表
-		menuItemList() {
-			return this.menuList
-				.map(submenu => {
-					return [...submenu.items]
-				})
-				.flat(1)
-		},
 	},
 
-	methods: {
-		selectMenu(menuIndex) {
-			const targetComponent = this.menuItemList.find(i => i.index === menuIndex).componentName
-			this.$emit('change-component', targetComponent)
+	watch: {
+		$route: {
+			handler(newVal) {
+				const val = newVal.path.substring(1)
+				this.defaultActiveMenu = val
+			},
+			deep: true,
+			immediate: true,
 		},
 	},
 }
